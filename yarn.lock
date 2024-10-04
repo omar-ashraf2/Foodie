@@ -473,6 +473,11 @@
   dependencies:
     levn "^0.4.1"
 
+"@fontsource/alexandria@^5.1.0":
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/@fontsource/alexandria/-/alexandria-5.1.0.tgz#0c194210111549693e1286bc4a86bfbf1fc54f8b"
+  integrity sha512-Ld8HpmXPfgfqlxVSFwDS8J3pl3kVj2YkY5K52nqJe7hg993iwmUw3sNFP1wVKBQPrDVxtQJPG/L/Gx2kkvUCYg==
+
 "@fontsource/roboto@^5.1.0":
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/@fontsource/roboto/-/roboto-5.1.0.tgz#00230737ec09c60ae877a5e33d067c0607fdd5ba"

@@ -1,24 +1,61 @@
-import React from "react";
-import SaladConfig from "./SaladConfig";
+import { FC } from "react";
+import { Box, Paper, Stack } from "@mui/material";
+import Header from "./common/Header";
+import IngredientCategory from "./IngredientCategory";
+import PriceSummary from "./PriceSummary";
+import SaladSizeSelector from "./SaladSizeSelector";
+import SaladVisualizer from "./SaladVisualizer";
 
-const SaladPageLayout: React.FC = () => {
+const SaladPageLayout: FC = () => {
   return (
-    <div className="flex flex-col items-center h-screen">
+    <Box className="flex flex-col h-screen">
       {/* Header */}
-      <header className="w-full bg-orange-500 text-white p-4">
-        Create Your Salad
-      </header>
+      <Box component="header" width="100%">
+        <Header />
+      </Box>
 
       {/* Main Content */}
-      <main className="w-full flex-1 p-4">
-        <SaladConfig />
-      </main>
+      <Box
+        component="main"
+        display="flex"
+        flex="1"
+        width="100%"
+        overflow="auto"
+      >
+        {/* Sidebar using MUI Paper */}
+        <Paper
+          elevation={3}
+          sx={{
+            width: "25%",
+            backgroundColor: "#F9F9F9",
+            padding: "16px",
+            height: "100%",
+            boxSizing: "border-box",
+            overflowY: "auto",
+          }}
+        >
+          <Stack spacing={2}>
+            <SaladSizeSelector />
+            <IngredientCategory title="Base Ingredients" />
+            <IngredientCategory title="Ingredients" />
+            <IngredientCategory title="Protein" />
+            <IngredientCategory title="Sauce" />
+            <PriceSummary />
+          </Stack>
+        </Paper>
 
-      {/* Footer with Navigation */}
-      <footer className="w-full bg-gray-200 p-4 text-center">
-        <button className="bg-green-500 text-white p-2 rounded">Next</button>
-      </footer>
-    </div>
+        {/* Visualizer Section */}
+        <Box
+          component="section"
+          width="75%"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <SaladVisualizer />
+        </Box>
+      </Box>
+    </Box>
   );
 };
 

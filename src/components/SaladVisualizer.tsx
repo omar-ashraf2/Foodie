@@ -6,7 +6,7 @@ const SaladVisualizer: React.FC = () => {
 
   return (
     <div>
-      <h3 className="text-center">Your Salad</h3>
+      <h3 className="text-center text-2xl">ابدأ بتحضيـــــر طبق <br /> السلطة الخاص بك!</h3>
       <div className="flex flex-wrap justify-center">
         {state.ingredients.map(
           (ingredient: {
