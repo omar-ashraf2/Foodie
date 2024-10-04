@@ -1,44 +1,68 @@
-import { ArrowForward } from "@mui/icons-material";
-import { Box, Button, IconButton, Typography } from "@mui/material";
-import React from "react";
+import { ArrowForward, CheckCircle } from "@mui/icons-material";
+import { Box, Button, Typography } from "@mui/material";
+import { FC } from "react";
+import PriceSummary from "../PriceSummary";
 
-const Header: React.FC = () => {
+const Header: FC = () => {
   return (
-    <Box className="flex items-center justify-between bg-[#F9F9F9] py-2 px-8 border-b">
+    <Box className="flex items-center justify-between bg-gray-50 py-2 px-8 border-b-2">
       {/* Back Button */}
-      <IconButton className="flex gap-2">
+      <Button color="inherit">
         <ArrowForward />
-        <Typography className="">رجوع</Typography>
-      </IconButton>
+        <Typography className="text-base">رجوع</Typography>
+      </Button>
 
       {/* Order Steps */}
-      <Box className="flex shrink-0 items-center space-x-2">
-        <Typography className="text-sm text-gray-400">نوع الطلب</Typography>
-        <Typography className="text-orange-500 font-bold">1</Typography>
-        <span className="text-gray-300">—</span>
+      <Box className="flex items-center justify-center gap-4">
+        <Box className="flex items-center gap-2">
+          <CheckCircle className="!text-[32px] " color="warning" />
+          <Typography className="mx-2 text-sm">نوع الطلب</Typography>
+        </Box>
 
-        <Typography className="text-sm text-gray-400">مكونات الطلب</Typography>
-        <Typography className="bg-orange-500 text-white px-2 py-1 rounded-full text-sm">
-          2
-        </Typography>
-        <span className="text-gray-300">—</span>
+        <hr className="bg-gray-400 h-[2px] w-12" />
 
-        <Typography className="text-sm text-gray-400">عنوان التوصيل</Typography>
-        <Typography className="bg-gray-300 text-gray-500 px-2 py-1 rounded-full text-sm">
-          3
-        </Typography>
-        <span className="text-gray-300">—</span>
+        <Box className="flex items-center gap-2">
+          <Box className="w-7 h-7 flex items-center justify-center rounded-full bg-orange-500 border-2 border-orange-400">
+            <Typography className="text-sm text-white">2</Typography>
+          </Box>
+          <Typography className="mx-2 text-sm">مكونات الطلب</Typography>
+        </Box>
 
-        <Typography className="text-sm text-gray-400">الدفع</Typography>
-        <Typography className="bg-gray-300 text-gray-500 px-2 py-1 rounded-full text-sm">
-          4
-        </Typography>
+        <hr className="bg-gray-400 h-[2px] w-12" />
+
+        <Box className="flex items-center gap-2">
+          <Box className="w-7 h-7 flex items-center justify-center rounded-full bg-orange-100">
+            <span className="text-sm font-light">3</span>
+          </Box>
+          <Typography fontWeight={300} className="mx-2 text-sm">
+            عنوان التوصيل
+          </Typography>
+        </Box>
+
+        <hr className="bg-gray-400 h-[2px] w-12" />
+
+        <Box className="flex items-center gap-2">
+          <Box className="w-7 h-7 flex items-center justify-center rounded-full bg-orange-100">
+            <span className="text-sm font-light ">4</span>
+          </Box>
+          <Typography fontWeight={300} className="mx-2 text-sm">
+            الدفع
+          </Typography>
+        </Box>
       </Box>
 
-      {/* Next Button */}
-      <Button variant="contained" color="warning" className="text-white">
-        التالي
-      </Button>
+      {/* Price and Next Button */}
+      <Box className="flex flex-row gap-8 items-center">
+        <PriceSummary />
+        <Button
+          variant="contained"
+          color="warning"
+          size="medium"
+          className="w-28"
+        >
+          التالي
+        </Button>
+      </Box>
     </Box>
   );
 };

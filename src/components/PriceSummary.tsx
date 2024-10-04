@@ -1,12 +1,15 @@
-import React from "react";
 import { useSaladContext } from "../contexts/SaladContext";
 
 const PriceSummary: React.FC = () => {
   const { state } = useSaladContext();
 
   return (
-    <div className="text-right">
-      <h4>Total Price: {state.totalPrice} EGP</h4>
+    <div
+      className={`text-right ${state.ingredients.length === 0 ? "hidden" : ""}`}
+    >
+      <p>
+        السعر : <span className="font-thin">{state.totalPrice} جـ</span>
+      </p>
     </div>
   );
 };
