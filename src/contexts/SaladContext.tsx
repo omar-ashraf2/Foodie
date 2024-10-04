@@ -14,18 +14,21 @@ type SaladState = {
   totalPrice: number;
 };
 
+// Set the initial state
 const initialState: SaladState = {
   size: null,
   ingredients: [],
   totalPrice: 0,
 };
 
+// Define SaladAction types
 type SaladAction =
   | { type: "SET_SIZE"; size: SaladState["size"] }
   | { type: "ADD_INGREDIENT"; ingredient: Ingredient }
   | { type: "REMOVE_INGREDIENT"; ingredientId: number }
   | { type: "RESET" };
 
+// Create the reducer function
 function saladReducer(state: SaladState, action: SaladAction): SaladState {
   switch (action.type) {
     case "SET_SIZE":
@@ -36,17 +39,18 @@ function saladReducer(state: SaladState, action: SaladAction): SaladState {
         ingredients: [...state.ingredients, action.ingredient],
         totalPrice: state.totalPrice + action.ingredient.price,
       };
-    case "REMOVE_INGREDIENT":
+    case "REMOVE_INGREDIENT": {
+      const removedIngredientPrice =
+        state.ingredients.find((item) => item.id === action.ingredientId)
+          ?.price || 0;
       return {
         ...state,
         ingredients: state.ingredients.filter(
           (item) => item.id !== action.ingredientId
         ),
-        totalPrice:
-          state.totalPrice -
-          state.ingredients.find((item) => item.id === action.ingredientId)
-            ?.price,
+        totalPrice: state.totalPrice - removedIngredientPrice,
       };
+    }
     case "RESET":
       return initialState;
     default:
@@ -62,7 +66,11 @@ const SaladContext = createContext<{
   dispatch: () => null,
 });
 
-export const SaladProvider = ({ children }: { children: ReactNode }) => {
+interface SaladProviderProps {
+  children: ReactNode;
+}
+
+export const SaladProvider: React.FC<SaladProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(saladReducer, initialState);
 
   return (
