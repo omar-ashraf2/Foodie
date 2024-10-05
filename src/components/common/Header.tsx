@@ -3,12 +3,14 @@ import { Box, Button, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { useSaladContext } from "../../contexts/SaladContext";
 import PriceSummary from "../PriceSummary";
+import OrderReviewModal from "./OrderReviewModal";
 import Toast from "./Toast";
 
 const Header: React.FC = () => {
   const { state, dispatch } = useSaladContext();
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [toastOpen, setToastOpen] = useState(false);
+  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
 
   const showToast = (message: string) => {
     setToastMessage(message);
@@ -41,12 +43,7 @@ const Header: React.FC = () => {
       return;
     }
 
-    showToast("تم استيفاء جميع الحقول، الانتقال إلى الخطوة التالية");
-  };
-
-  const handleReset = () => {
-    dispatch({ type: "RESET" });
-    showToast("تم الرجوع إلى الحالة الابتدائية");
+    setIsReviewModalOpen(true);
   };
 
   return (
@@ -54,7 +51,11 @@ const Header: React.FC = () => {
       sx={{ boxShadow: "0px 2px 2px 0px #00000026" }}
       className="flex items-center justify-between bg-[##F9F9F9] py-2 px-8 border-b"
     >
-      <Button color="inherit" className="flex gap-2" onClick={handleReset}>
+      <Button
+        color="inherit"
+        className="flex gap-2"
+        onClick={() => dispatch({ type: "RESET" })}
+      >
         <ArrowForward />
         <Typography className="text-base">رجوع</Typography>
       </Button>
@@ -118,6 +119,14 @@ const Header: React.FC = () => {
         open={toastOpen}
         message={toastMessage || ""}
         onClose={handleCloseToast}
+      />
+
+      <OrderReviewModal
+        open={isReviewModalOpen}
+        onClose={() => setIsReviewModalOpen(false)}
+        size={state.size}
+        ingredients={state.ingredients}
+        totalPrice={state.totalPrice}
       />
     </Box>
   );
