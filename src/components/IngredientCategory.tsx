@@ -13,7 +13,6 @@ import {
   sauce,
 } from "../constants/ingredients";
 import { useSaladContext } from "../contexts/SaladContext";
-
 import {
   AccordionStyle,
   AccordionSummaryStyle,
@@ -21,6 +20,17 @@ import {
 } from "../styles/styles";
 import { Ingredient } from "../types/Ingredient";
 import IngredientItem from "./IngredientItem";
+
+const CATEGORY_LIMITS = {
+  base: 2,
+  ingredient: {
+    small: 5,
+    medium: 6,
+    large: 8,
+  },
+  protein: 1,
+  sauce: 1,
+};
 
 type IngredientCategoryProps = {
   title: string;
@@ -45,6 +55,13 @@ const IngredientCategory: React.FC<IngredientCategoryProps> = ({
       sauce: sauce,
     };
 
+  const getCategoryLimit = () => {
+    if (category === "ingredient") {
+      return CATEGORY_LIMITS.ingredient[state.size || "small"];
+    }
+    return CATEGORY_LIMITS[category];
+  };
+
   const handleIngredientChange = (id: number) => {
     const ingredient = categoryIngredients[category].find(
       (item) => item.id === id
@@ -52,11 +69,19 @@ const IngredientCategory: React.FC<IngredientCategoryProps> = ({
     if (ingredient) {
       if (state.ingredients.some((item) => item.id === id)) {
         dispatch({ type: "REMOVE_INGREDIENT", ingredientId: id });
-      } else {
+      } else if (
+        state.ingredients.filter((item) => item.category === category).length <
+        getCategoryLimit()
+      ) {
         dispatch({ type: "ADD_INGREDIENT", ingredient });
       }
     }
   };
+
+  const selectedCount = state.ingredients.filter(
+    (item) => item.category === category
+  ).length;
+  const maxReached = selectedCount >= getCategoryLimit();
 
   return (
     <Accordion sx={AccordionStyle}>
@@ -88,6 +113,10 @@ const IngredientCategory: React.FC<IngredientCategoryProps> = ({
                     (item) => item.id === ingredient.id
                   )}
                   onChange={handleIngredientChange}
+                  disabled={
+                    maxReached &&
+                    !state.ingredients.some((item) => item.id === ingredient.id)
+                  }
                 />
               ))}
             </Box>

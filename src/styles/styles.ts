@@ -77,4 +77,14 @@ export const CheckboxStyle: SxProps = {
   "&.Mui-checked .MuiSvgIcon-root": {
     color: "#FBB26F",
   },
+  "&.Mui-disabled .MuiSvgIcon-root path": {
+    color: "#b0b0b0",
+  },
+  "&.Mui-disabled .MuiSvgIcon-root": {
+    color: "#b0b0b0",
+    cursor: "not-allowed",
+  },
+  "&.Mui-disabled + .MuiTypography-root": {
+    color: "#b0b0b0",
+  },
 };

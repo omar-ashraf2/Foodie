@@ -7,12 +7,14 @@ type IngredientItemProps = {
   ingredient: Ingredient;
   selected: boolean;
   onChange: (id: number) => void;
+  disabled?: boolean;
 };
 
 const IngredientItem: React.FC<IngredientItemProps> = ({
   ingredient,
   selected,
   onChange,
+  disabled = false,
 }) => {
   return (
     <Box display="flex" alignItems="center">
@@ -20,9 +22,10 @@ const IngredientItem: React.FC<IngredientItemProps> = ({
         control={
           <Checkbox
             checked={selected}
-            onChange={() => onChange(ingredient.id)}
+            onChange={() => !disabled && onChange(ingredient.id)}
             disableRipple
             sx={CheckboxStyle}
+            disabled={disabled}
           />
         }
         label={
@@ -33,6 +36,7 @@ const IngredientItem: React.FC<IngredientItemProps> = ({
               overflow: "hidden",
               whiteSpace: "nowrap",
               textOverflow: "ellipsis",
+              color: disabled ? "#737171" : "inherit",
             }}
           >
             {ingredient.name}
@@ -40,6 +44,7 @@ const IngredientItem: React.FC<IngredientItemProps> = ({
         }
         sx={{
           margin: 0,
+          opacity: disabled ? 0.6 : 1,
         }}
       />
     </Box>

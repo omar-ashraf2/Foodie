@@ -7,11 +7,26 @@ import { SidebarStyles } from "../../styles/sidebarStyles";
 
 const Sidebar: FC = () => {
   const [isSizeSelected, setIsSizeSelected] = useState(false);
+  const [selectedSize, setSelectedSize] = useState<TSize | null>(null);
 
   const handleSizeSelection = (selectedSize: TSize) => {
     setIsSizeSelected(!!selectedSize);
+    setSelectedSize(selectedSize);
   };
 
+  const getIngredientLimitMessage = () => {
+    if (!selectedSize) return "قم باختيار مكونات السلطة";
+    switch (selectedSize) {
+      case "small":
+        return "قم باختيار مكونات السلطة ( 5 مكونات )";
+      case "medium":
+        return "قم باختيار مكونات السلطة ( 6 مكونات )";
+      case "large":
+        return "قم باختيار مكونات السلطة ( 8 مكونات )";
+      default:
+        return "قم باختيار مكونات السلطة";
+    }
+  };
   return (
     <Paper sx={SidebarStyles}>
       <Stack spacing={2}>
@@ -34,7 +49,7 @@ const Sidebar: FC = () => {
           title="المكونات"
           isSizeSelected={isSizeSelected}
           category="ingredient"
-          message="قم باختيار مكونات السلطة ( 8 مكونات )"
+          message={getIngredientLimitMessage()}
         />
         <IngredientCategory
           title="البروتين"
