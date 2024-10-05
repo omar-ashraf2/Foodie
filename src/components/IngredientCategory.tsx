@@ -6,7 +6,6 @@ import {
   Box,
   Typography,
 } from "@mui/material";
-import React from "react";
 import {
   baseIngredients,
   ingredients,
@@ -26,7 +25,7 @@ import IngredientItem from "./IngredientItem";
 type IngredientCategoryProps = {
   title: string;
   isSizeSelected: boolean;
-  category: "base" | "ingredient" | "protein" | "sauce";
+  category: Ingredient["category"];
   message: string;
 };
 
@@ -71,27 +70,32 @@ const IngredientCategory: React.FC<IngredientCategoryProps> = ({
       </AccordionSummary>
       <AccordionDetails>
         {isSizeSelected ? (
-          <Box
-            sx={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: "8px",
-              width: "100%",
-            }}
-          >
-            {categoryIngredients[category].map((ingredient) => (
-              <IngredientItem
-                key={ingredient.id}
-                ingredient={ingredient}
-                selected={state.ingredients.some(
-                  (item) => item.id === ingredient.id
-                )}
-                onChange={handleIngredientChange}
-              />
-            ))}
-          </Box>
+          <>
+            <Typography sx={SubtitleStyle}>{message} </Typography>
+            <Box
+              sx={{
+                display: "grid",
+                gridTemplateColumns: "repeat(3, 1fr)",
+                gap: "8px",
+                width: "100%",
+              }}
+            >
+              {categoryIngredients[category].map((ingredient) => (
+                <IngredientItem
+                  key={ingredient.id}
+                  ingredient={ingredient}
+                  selected={state.ingredients.some(
+                    (item) => item.id === ingredient.id
+                  )}
+                  onChange={handleIngredientChange}
+                />
+              ))}
+            </Box>
+          </>
         ) : (
-          <Typography sx={SubtitleStyle}>{message}</Typography>
+          <Typography sx={SubtitleStyle}>
+            قم باختيار حجم السلطة أولاً
+          </Typography>
         )}
       </AccordionDetails>
     </Accordion>

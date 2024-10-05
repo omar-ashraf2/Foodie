@@ -9,7 +9,6 @@ import {
   SelectChangeEvent,
   Typography,
 } from "@mui/material";
-import React from "react";
 import { useSaladContext } from "../contexts/SaladContext";
 import {
   AccordionStyle,
@@ -18,9 +17,10 @@ import {
   SelectStyle,
   SubtitleStyle,
 } from "../styles/styles";
+import { TSize } from "../types/size";
 
 type SaladSizeSelectorProps = {
-  onSizeSelect: (size: "small" | "medium" | "large" | null) => void;
+  onSizeSelect: (size: TSize) => void;
 };
 
 const SaladSizeSelector: React.FC<SaladSizeSelectorProps> = ({
@@ -29,7 +29,7 @@ const SaladSizeSelector: React.FC<SaladSizeSelectorProps> = ({
   const { state, dispatch } = useSaladContext();
 
   const handleChange = (event: SelectChangeEvent) => {
-    const newSize = event.target.value as "small" | "medium" | "large" | null;
+    const newSize = event.target.value as TSize;
     dispatch({
       type: "SET_SIZE",
       size: newSize,

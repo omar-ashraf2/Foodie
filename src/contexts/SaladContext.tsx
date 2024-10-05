@@ -1,8 +1,9 @@
 import React, { createContext, useReducer, useContext, ReactNode } from "react";
 import { Ingredient } from "../types/Ingredient";
+import { TSize } from "../types/size";
 
 type SaladState = {
-  size: "small" | "medium" | "large" | null;
+  size: TSize;
   ingredients: Ingredient[];
   totalPrice: number;
 };
