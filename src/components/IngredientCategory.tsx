@@ -7,35 +7,57 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import { Ingredient } from "../contexts/SaladContext";
+import {
+  baseIngredients,
+  ingredients,
+  protein,
+  sauce,
+} from "../constants/ingredients";
+import { useSaladContext } from "../contexts/SaladContext";
+
 import {
   AccordionStyle,
   AccordionSummaryStyle,
   SubtitleStyle,
 } from "../styles/styles";
+import { Ingredient } from "../types/Ingredient";
 import IngredientItem from "./IngredientItem";
 
 type IngredientCategoryProps = {
   title: string;
   isSizeSelected: boolean;
+  category: "base" | "ingredient" | "protein" | "sauce";
   message: string;
 };
 
 const IngredientCategory: React.FC<IngredientCategoryProps> = ({
   title,
   isSizeSelected,
+  category,
   message,
 }) => {
-  const ingredients = [
+  const { state, dispatch } = useSaladContext();
+
+  const categoryIngredients: { [key in Ingredient["category"]]: Ingredient[] } =
     {
-      id: 1,
-      name: "Lettuce",
-      category: "base",
-      price: 10,
-      image: "lettuce.png",
-    },
-    { id: 2, name: "Tomato", category: "base", price: 8, image: "tomato.png" },
-  ] as Ingredient[];
+      base: baseIngredients,
+      ingredient: ingredients,
+      protein: protein,
+      sauce: sauce,
+    };
+
+  const handleIngredientChange = (id: number) => {
+    const ingredient = categoryIngredients[category].find(
+      (item) => item.id === id
+    );
+    if (ingredient) {
+      if (state.ingredients.some((item) => item.id === id)) {
+        dispatch({ type: "REMOVE_INGREDIENT", ingredientId: id });
+      } else {
+        dispatch({ type: "ADD_INGREDIENT", ingredient });
+      }
+    }
+  };
 
   return (
     <Accordion sx={AccordionStyle}>
@@ -49,15 +71,27 @@ const IngredientCategory: React.FC<IngredientCategoryProps> = ({
       </AccordionSummary>
       <AccordionDetails>
         {isSizeSelected ? (
-          ingredients.map((ingredient) => (
-            <IngredientItem key={ingredient.id} ingredient={ingredient} />
-          ))
-        ) : (
-          <Box>
-            <Typography color="textSecondary" sx={SubtitleStyle}>
-              {message}
-            </Typography>
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: "repeat(3, 1fr)",
+              gap: "8px",
+              width: "100%",
+            }}
+          >
+            {categoryIngredients[category].map((ingredient) => (
+              <IngredientItem
+                key={ingredient.id}
+                ingredient={ingredient}
+                selected={state.ingredients.some(
+                  (item) => item.id === ingredient.id
+                )}
+                onChange={handleIngredientChange}
+              />
+            ))}
           </Box>
+        ) : (
+          <Typography sx={SubtitleStyle}>{message}</Typography>
         )}
       </AccordionDetails>
     </Accordion>

@@ -64,3 +64,17 @@ export const MenuItemStyle: SxProps = {
     backgroundColor: "#FFD8BA",
   },
 };
+
+export const CheckboxStyle: SxProps = {
+  "& .MuiSvgIcon-root": {
+    borderRadius: "2px",
+    width: "20px",
+    height: "20px",
+  },
+  "& .MuiSvgIcon-root path": {
+    color: "#F98D37",
+  },
+  "&.Mui-checked .MuiSvgIcon-root": {
+    color: "#FBB26F",
+  },
+};

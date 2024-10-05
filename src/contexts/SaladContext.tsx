@@ -1,12 +1,5 @@
 import React, { createContext, useReducer, useContext, ReactNode } from "react";
-
-export type Ingredient = {
-  id: number;
-  name: string;
-  category: "base" | "ingredient" | "protein" | "sauce";
-  price: number;
-  image: string;
-};
+import { Ingredient } from "../types/Ingredient";
 
 type SaladState = {
   size: "small" | "medium" | "large" | null;
