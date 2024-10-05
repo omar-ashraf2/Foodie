@@ -20,36 +20,33 @@ const Header: React.FC = () => {
     setToastMessage(null);
   };
 
-  const handleReset = () => {
-    dispatch({ type: "RESET" });
-    showToast("تم الرجوع إلى الحالة الابتدائية");
-  };
-
-  const isFieldMissing = (field: string | null) => !field || field.length === 0;
-
   const handleNext = () => {
     const { size, ingredients } = state;
 
-    if (isFieldMissing(size))
-      return showToast("تأكد من ادخال جميع البيانات المطلوبة");
+    const errors = {
+      size: !size,
+      base: ingredients.filter((item) => item.category === "base").length < 1,
+      ingredient:
+        ingredients.filter((item) => item.category === "ingredient").length <
+        (size === "large" ? 8 : size === "medium" ? 6 : 5),
+      protein:
+        ingredients.filter((item) => item.category === "protein").length < 1,
+      sauce: ingredients.filter((item) => item.category === "sauce").length < 1,
+    };
 
-    const requiredIngredientsCount =
-      size === "large" ? 8 : size === "medium" ? 6 : 5;
+    dispatch({ type: "SET_VALIDATION_ERRORS", errors });
 
-    const categories = [
-      { category: "base", min: 1 },
-      { category: "ingredient", min: requiredIngredientsCount },
-      { category: "protein", min: 1 },
-      { category: "sauce", min: 1 },
-    ];
-
-    for (const { category, min } of categories) {
-      const selectedCount = ingredients.filter(
-        (item) => item.category === category
-      ).length;
-      if (selectedCount < min)
-        return showToast("تأكد من ادخال جميع البيانات المطلوبة");
+    if (Object.values(errors).some((error) => error)) {
+      showToast("تأكد من ادخال جميع البيانات المطلوبة");
+      return;
     }
+
+    showToast("تم استيفاء جميع الحقول، الانتقال إلى الخطوة التالية");
+  };
+
+  const handleReset = () => {
+    dispatch({ type: "RESET" });
+    showToast("تم الرجوع إلى الحالة الابتدائية");
   };
 
   return (

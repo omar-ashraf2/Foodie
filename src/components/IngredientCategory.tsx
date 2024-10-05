@@ -1,3 +1,4 @@
+import React from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
   Accordion,
@@ -6,20 +7,20 @@ import {
   Box,
   Typography,
 } from "@mui/material";
+import { useSaladContext } from "../contexts/SaladContext";
 import {
   baseIngredients,
   ingredients,
   protein,
   sauce,
 } from "../constants/ingredients";
-import { useSaladContext } from "../contexts/SaladContext";
 import {
   AccordionStyle,
   AccordionSummaryStyle,
   SubtitleStyle,
 } from "../styles/styles";
-import { Ingredient } from "../types/Ingredient";
 import IngredientItem from "./IngredientItem";
+import { Ingredient } from "../types/Ingredient";
 
 const CATEGORY_LIMITS = {
   base: 2,
@@ -46,21 +47,18 @@ const IngredientCategory: React.FC<IngredientCategoryProps> = ({
   message,
 }) => {
   const { state, dispatch } = useSaladContext();
-
   const categoryIngredients: { [key in Ingredient["category"]]: Ingredient[] } =
     {
       base: baseIngredients,
       ingredient: ingredients,
-      protein: protein,
-      sauce: sauce,
+      protein,
+      sauce,
     };
 
-  const getCategoryLimit = () => {
-    if (category === "ingredient") {
-      return CATEGORY_LIMITS.ingredient[state.size || "small"];
-    }
-    return CATEGORY_LIMITS[category];
-  };
+  const getCategoryLimit = () =>
+    category === "ingredient"
+      ? CATEGORY_LIMITS.ingredient[state.size || "small"]
+      : CATEGORY_LIMITS[category];
 
   const handleIngredientChange = (id: number) => {
     const ingredient = categoryIngredients[category].find(
@@ -82,7 +80,7 @@ const IngredientCategory: React.FC<IngredientCategoryProps> = ({
     (item) => item.category === category
   ).length;
   const maxReached = selectedCount >= getCategoryLimit();
-
+  const hasValidationError = state.validationErrors[category];
   return (
     <Accordion sx={AccordionStyle}>
       <AccordionSummary
@@ -96,7 +94,14 @@ const IngredientCategory: React.FC<IngredientCategoryProps> = ({
       <AccordionDetails>
         {isSizeSelected ? (
           <>
-            <Typography sx={SubtitleStyle}>{message} </Typography>
+            <Typography
+              sx={{
+                ...SubtitleStyle,
+                color: hasValidationError ? "#E50606" : "inherit",
+              }}
+            >
+              {message}
+            </Typography>
             <Box
               sx={{
                 display: "grid",
@@ -122,7 +127,7 @@ const IngredientCategory: React.FC<IngredientCategoryProps> = ({
             </Box>
           </>
         ) : (
-          <Typography sx={SubtitleStyle}>
+          <Typography sx={{ ...SubtitleStyle, color: "#E50606" }}>
             قم باختيار حجم السلطة أولاً
           </Typography>
         )}

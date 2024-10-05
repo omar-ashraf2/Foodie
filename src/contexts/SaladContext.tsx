@@ -6,31 +6,53 @@ type SaladState = {
   size: TSize;
   ingredients: Ingredient[];
   totalPrice: number;
+  validationErrors: {
+    size: boolean;
+    base: boolean;
+    ingredient: boolean;
+    protein: boolean;
+    sauce: boolean;
+  };
 };
 
-// Set the initial state
 const initialState: SaladState = {
   size: null,
   ingredients: [],
   totalPrice: 0,
+  validationErrors: {
+    size: false,
+    base: false,
+    ingredient: false,
+    protein: false,
+    sauce: false,
+  },
 };
 
-// Define SaladAction types
 type SaladAction =
   | { type: "SET_SIZE"; size: SaladState["size"] }
   | { type: "ADD_INGREDIENT"; ingredient: Ingredient }
   | { type: "REMOVE_INGREDIENT"; ingredientId: number }
+  | { type: "SET_VALIDATION_ERRORS"; errors: SaladState["validationErrors"] }
   | { type: "RESET" };
 
-// Create the reducer function
 function saladReducer(state: SaladState, action: SaladAction): SaladState {
   switch (action.type) {
     case "SET_SIZE":
-      return { ...state, size: action.size, ingredients: [], totalPrice: 0 };
+      return {
+        ...state,
+        size: action.size,
+        ingredients: [],
+        totalPrice: 0,
+        validationErrors: { ...state.validationErrors, size: false },
+      };
     case "ADD_INGREDIENT":
       return {
         ...state,
         ingredients: [...state.ingredients, action.ingredient],
+        validationErrors: {
+          ...state.validationErrors,
+          [action.ingredient.category]: false,
+        },
         totalPrice: state.totalPrice + action.ingredient.price,
       };
     case "REMOVE_INGREDIENT": {
@@ -45,6 +67,11 @@ function saladReducer(state: SaladState, action: SaladAction): SaladState {
         totalPrice: state.totalPrice - removedIngredientPrice,
       };
     }
+    case "SET_VALIDATION_ERRORS":
+      return {
+        ...state,
+        validationErrors: action.errors,
+      };
     case "RESET":
       return initialState;
     default:
