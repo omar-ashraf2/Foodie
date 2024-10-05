@@ -1,3 +1,4 @@
+import { Box, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import SaladImage from "../assets/salad.png";
 import {
@@ -17,6 +18,13 @@ const allIngredients: Ingredient[] = [
   ...sauce,
 ];
 
+const categoryMapping = {
+  base: { title: "قاعدة السلطة", ingredients: baseIngredients },
+  ingredient: { title: "المحتويات", ingredients: ingredients },
+  protein: { title: "البروتين", ingredients: protein },
+  sauce: { title: "الصوص", ingredients: sauce },
+};
+
 const SaladVisualizer: React.FC = () => {
   const { state } = useSaladContext();
 
@@ -28,41 +36,91 @@ const SaladVisualizer: React.FC = () => {
   const getIngredientDetails = (id: number) =>
     allIngredients.find((item) => item.id === id);
 
-  return (
-    <div className="flex flex-col items-center justify-center h-full">
-      {state.ingredients.length === 0 && (
-        <>
-          <div className="relative w-48 h-44 mb-2">
-            <img
-              src={SaladImage}
-              alt="Salad Bowl"
-              className="w-full h-full object-contain"
-            />
-          </div>
-          <h3 className="text-center text-2xl">
-            ابدأ بتحضير طبق <br /> السلطة الخاص بك!
-          </h3>
-        </>
-      )}
+  const SaladListPlaceholder = () => (
+    <Box
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
+      height="100%"
+    >
+      <Box width="192px" height="176px" mb={2}>
+        <img
+          src={SaladImage}
+          alt="Salad Bowl"
+          style={{ width: "100%", height: "100%", objectFit: "contain" }}
+        />
+      </Box>
+      <Typography variant="h5" align="center">
+        ابدأ بتحضير طبق <br /> السلطة الخاص بك!
+      </Typography>
+    </Box>
+  );
 
-      <div className="grid grid-cols-3 gap-4 mt-8">
-        {state.ingredients.map((ingredient) => {
-          const ingredientDetails = getIngredientDetails(ingredient.id);
-          return ingredientDetails ? (
-            <div
-              key={ingredientDetails.id}
-              className="flex flex-col items-center"
-            >
-              <img
-                src={ingredientDetails.image}
-                alt={ingredientDetails.name}
-                className="w-16 h-16 object-contain mb-1"
-              />
-            </div>
-          ) : null;
-        })}
-      </div>
-    </div>
+  const SaladList = () =>
+    Object.entries(categoryMapping).map(([category, details]) => {
+      const ingredientsInCategory = state.ingredients.filter(
+        (ingredient) => ingredient.category === category
+      );
+      if (ingredientsInCategory.length === 0) return null;
+      return (
+        <Box
+          key={category}
+          display="flex"
+          flexDirection="column"
+          alignItems="flex-start"
+          mb={2}
+          width="100%"
+        >
+          <Typography
+            variant="h6"
+            component="h2"
+            mb={2}
+            fontWeight="medium"
+            width="100%"
+            fontSize="16px"
+          >
+            {details.title}
+          </Typography>
+          <Box
+            display="flex"
+            flexWrap="wrap"
+            gap="16px"
+            justifyContent="flex-start"
+          >
+            {ingredientsInCategory.map((ingredient) => {
+              const ingredientDetails = getIngredientDetails(ingredient.id);
+              return ingredientDetails ? (
+                <Box key={ingredientDetails.id}>
+                  <img
+                    src={ingredientDetails.image}
+                    alt={ingredientDetails.name}
+                    width={156}
+                    height={120}
+                  />
+                </Box>
+              ) : null;
+            })}
+          </Box>
+        </Box>
+      );
+    });
+
+  return (
+    <Box
+      display="flex"
+      flexDirection="column"
+      width="70%"
+      height="100%"
+      p={4}
+      overflow="auto"
+    >
+      {state.ingredients.length === 0 ? (
+        <SaladListPlaceholder />
+      ) : (
+        <SaladList />
+      )}
+    </Box>
   );
 };
 

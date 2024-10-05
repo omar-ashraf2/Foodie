@@ -24,15 +24,7 @@ const SaladPageLayout: FC = () => {
         <Sidebar />
 
         {/* Visualizer Section */}
-        <Box
-          component="section"
-          width="70%"
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <SaladVisualizer />
-        </Box>
+        <SaladVisualizer />
       </Box>
     </Box>
   );
