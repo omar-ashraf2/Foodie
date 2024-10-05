@@ -1,4 +1,3 @@
-import React from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
   Accordion,
@@ -7,20 +6,21 @@ import {
   Box,
   Typography,
 } from "@mui/material";
-import { useSaladContext } from "../contexts/SaladContext";
+import { useCallback, useMemo } from "react";
 import {
   baseIngredients,
   ingredients,
   protein,
   sauce,
 } from "../constants/ingredients";
+import { useSaladContext } from "../contexts/SaladContext";
 import {
   AccordionStyle,
   AccordionSummaryStyle,
   SubtitleStyle,
 } from "../styles/styles";
-import IngredientItem from "./IngredientItem";
 import { Ingredient } from "../types/Ingredient";
+import IngredientItem from "./IngredientItem";
 
 const CATEGORY_LIMITS = {
   base: 2,
@@ -47,40 +47,52 @@ const IngredientCategory: React.FC<IngredientCategoryProps> = ({
   message,
 }) => {
   const { state, dispatch } = useSaladContext();
-  const categoryIngredients: { [key in Ingredient["category"]]: Ingredient[] } =
-    {
+
+  const categoryIngredients = useMemo(
+    () => ({
       base: baseIngredients,
       ingredient: ingredients,
       protein,
       sauce,
-    };
+    }),
+    []
+  );
 
-  const getCategoryLimit = () =>
-    category === "ingredient"
-      ? CATEGORY_LIMITS.ingredient[state.size || "small"]
-      : CATEGORY_LIMITS[category];
+  const selectedCount = useMemo(
+    () => state.ingredients.filter((item) => item.category === category).length,
+    [state.ingredients, category]
+  );
+
+  const getCategoryLimit = useCallback(
+    () =>
+      category === "ingredient"
+        ? CATEGORY_LIMITS.ingredient[state.size || "small"]
+        : CATEGORY_LIMITS[category],
+    [state.size, category]
+  );
+
+  const maxReached = useMemo(
+    () => selectedCount >= getCategoryLimit(),
+    [selectedCount, getCategoryLimit]
+  );
 
   const handleIngredientChange = (id: number) => {
     const ingredient = categoryIngredients[category].find(
       (item) => item.id === id
     );
-    if (ingredient) {
-      if (state.ingredients.some((item) => item.id === id)) {
-        dispatch({ type: "REMOVE_INGREDIENT", ingredientId: id });
-      } else if (
-        state.ingredients.filter((item) => item.category === category).length <
-        getCategoryLimit()
-      ) {
-        dispatch({ type: "ADD_INGREDIENT", ingredient });
-      }
+    if (!ingredient) return;
+
+    const isSelected = state.ingredients.some((item) => item.id === id);
+
+    if (isSelected) {
+      dispatch({ type: "REMOVE_INGREDIENT", ingredientId: id });
+    } else if (selectedCount < getCategoryLimit()) {
+      dispatch({ type: "ADD_INGREDIENT", ingredient });
     }
   };
 
-  const selectedCount = state.ingredients.filter(
-    (item) => item.category === category
-  ).length;
-  const maxReached = selectedCount >= getCategoryLimit();
   const hasValidationError = state.validationErrors[category];
+
   return (
     <Accordion sx={AccordionStyle}>
       <AccordionSummary
@@ -127,7 +139,12 @@ const IngredientCategory: React.FC<IngredientCategoryProps> = ({
             </Box>
           </>
         ) : (
-          <Typography sx={{ ...SubtitleStyle, color: "#E50606" }}>
+          <Typography
+            sx={{
+              ...SubtitleStyle,
+              color: hasValidationError ? "#E50606" : "inherit",
+            }}
+          >
             قم باختيار حجم السلطة أولاً
           </Typography>
         )}

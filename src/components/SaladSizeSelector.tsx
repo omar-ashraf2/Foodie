@@ -18,23 +18,15 @@ import {
   SubtitleStyle,
 } from "../styles/styles";
 import { TSize } from "../types/size";
-
-type SaladSizeSelectorProps = {
-  onSizeSelect: (size: TSize) => void;
-};
-
-const SaladSizeSelector: React.FC<SaladSizeSelectorProps> = ({
-  onSizeSelect,
-}) => {
-  const { state, dispatch } = useSaladContext();
+const SaladSizeSelector: React.FC = () => {
+  const {
+    state: { size },
+    dispatch,
+  } = useSaladContext();
 
   const handleChange = (event: SelectChangeEvent) => {
     const newSize = event.target.value as TSize;
-    dispatch({
-      type: "SET_SIZE",
-      size: newSize,
-    });
-    onSizeSelect(newSize);
+    dispatch({ type: "SET_SIZE", size: newSize });
   };
 
   return (
@@ -46,6 +38,7 @@ const SaladSizeSelector: React.FC<SaladSizeSelectorProps> = ({
         },
       }}
     >
+      {" "}
       <AccordionSummary
         expandIcon={<ExpandMoreIcon sx={{ color: "#333" }} />}
         sx={AccordionSummaryStyle}
@@ -64,7 +57,7 @@ const SaladSizeSelector: React.FC<SaladSizeSelectorProps> = ({
         <FormControl fullWidth>
           <Select
             displayEmpty
-            value={state.size || ""}
+            value={size || ""}
             onChange={handleChange}
             sx={SelectStyle}
           >
@@ -75,7 +68,6 @@ const SaladSizeSelector: React.FC<SaladSizeSelectorProps> = ({
             >
               برجاء الاختيار
             </MenuItem>
-
             <MenuItem value="small" sx={MenuItemStyle}>
               سلطة صغيرة ( S )
             </MenuItem>

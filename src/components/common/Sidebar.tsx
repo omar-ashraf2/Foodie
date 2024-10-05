@@ -7,17 +7,12 @@ import {
 } from "../../constants/sidebar";
 import { useSaladContext } from "../../contexts/SaladContext";
 import { SidebarStyles } from "../../styles/sidebarStyles";
-import { TSize } from "../../types/size";
 import IngredientCategory from "../IngredientCategory";
 import SaladSizeSelector from "../SaladSizeSelector";
 
 const Sidebar: React.FC = () => {
-  const { state, dispatch } = useSaladContext();
+  const { state } = useSaladContext();
   const { size } = state;
-
-  const handleSizeSelection = (newSize: TSize) => {
-    dispatch({ type: "SET_SIZE", size: newSize });
-  };
 
   const ingredientLimitMessage = useMemo(
     () => (size ? sizeMessages[size] : validationMessages.size),
@@ -32,7 +27,7 @@ const Sidebar: React.FC = () => {
         <Typography variant="h6" sx={{ fontWeight: "bold", fontSize: "14px" }}>
           مكونات الطلب
         </Typography>
-        <SaladSizeSelector onSizeSelect={handleSizeSelection} />
+        <SaladSizeSelector />
         {(
           Object.keys(categoryTitles) as Array<keyof typeof categoryTitles>
         ).map((category) => (
