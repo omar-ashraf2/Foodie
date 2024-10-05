@@ -1,9 +1,11 @@
-import { ArrowForward, CheckCircle } from "@mui/icons-material";
+import { ArrowForward } from "@mui/icons-material";
 import { Box, Button, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { useSaladContext } from "../../contexts/SaladContext";
+import { validateSaladSelection } from "../../utils/validationUtils";
 import PriceSummary from "../PriceSummary";
 import OrderReviewModal from "./OrderReviewModal";
+import Step from "./Step";
 import Toast from "./Toast";
 
 const Header: React.FC = () => {
@@ -23,18 +25,7 @@ const Header: React.FC = () => {
   };
 
   const handleNext = () => {
-    const { size, ingredients } = state;
-
-    const errors = {
-      size: !size,
-      base: ingredients.filter((item) => item.category === "base").length < 1,
-      ingredient:
-        ingredients.filter((item) => item.category === "ingredient").length <
-        (size === "large" ? 8 : size === "medium" ? 6 : 5),
-      protein:
-        ingredients.filter((item) => item.category === "protein").length < 1,
-      sauce: ingredients.filter((item) => item.category === "sauce").length < 1,
-    };
+    const errors = validateSaladSelection(state.size, state.ingredients);
 
     dispatch({ type: "SET_VALIDATION_ERRORS", errors });
 
@@ -69,35 +60,12 @@ const Header: React.FC = () => {
         ].map(({ step, label, completed, current }, index) => (
           <React.Fragment key={step}>
             {index > 0 && <hr className="bg-gray-400 h-[2px] w-12" />}
-            <Box className="flex items-center gap-2">
-              <Box
-                className={`w-7 h-7 flex items-center justify-center rounded-full ${
-                  completed
-                    ? "!text-[32px] text-orange-500"
-                    : current
-                    ? "bg-orange-500 border-2 border-orange-400"
-                    : "bg-orange-100"
-                }`}
-              >
-                {completed ? (
-                  <CheckCircle className="!text-[32px] " />
-                ) : (
-                  <Typography
-                    className={`text-sm ${
-                      current ? "text-white" : "font-light"
-                    }`}
-                  >
-                    {step}
-                  </Typography>
-                )}
-              </Box>
-              <Typography
-                className="mx-2 text-sm"
-                fontWeight={completed || current ? 500 : 300}
-              >
-                {label}
-              </Typography>
-            </Box>
+            <Step
+              step={step}
+              label={label}
+              completed={completed}
+              current={current}
+            />
           </React.Fragment>
         ))}
       </Box>

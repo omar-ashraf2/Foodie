@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { SaladProvider } from "./contexts/SaladContext";
-import SaladPageLayout from "./components/SaladPageLayout";
+import SaladPageLayout from "./pages/SaladPageLayout";
 
 const App: React.FC = () => {
   return (

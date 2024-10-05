@@ -1,8 +1,8 @@
 import { Box } from "@mui/material";
 import { FC } from "react";
-import Header from "./common/Header";
-import Sidebar from "./common/Sidebar";
-import SaladVisualizer from "./SaladVisualizer";
+import Header from "../components/common/Header";
+import Sidebar from "../components/common/Sidebar";
+import SaladVisualizer from "../components/SaladVisualizer";
 
 const SaladPageLayout: FC = () => {
   return (
@@ -12,7 +12,6 @@ const SaladPageLayout: FC = () => {
         <Header />
       </Box>
 
-      {/* Main Content */}
       <Box
         component="main"
         display="flex"
@@ -20,10 +19,8 @@ const SaladPageLayout: FC = () => {
         width="100%"
         overflow="auto"
       >
-        {/* Sidebar Section */}
         <Sidebar />
 
-        {/* Visualizer Section */}
         <SaladVisualizer />
       </Box>
     </Box>
