@@ -68,17 +68,22 @@ const SaladSizeSelector: React.FC<SaladSizeSelectorProps> = ({
             onChange={handleChange}
             sx={SelectStyle}
           >
-            <MenuItem value="" sx={MenuItemStyle} disabled>
+            <MenuItem
+              value=""
+              sx={{ ...MenuItemStyle, display: "none" }}
+              disabled
+            >
               برجاء الاختيار
             </MenuItem>
+
             <MenuItem value="small" sx={MenuItemStyle}>
-              سلطة صغيرة (S)
+              سلطة صغيرة ( S )
             </MenuItem>
             <MenuItem value="medium" sx={MenuItemStyle}>
-              سلطة وسط (M)
+              سلطة وسط ( M )
             </MenuItem>
             <MenuItem value="large" sx={MenuItemStyle}>
-              سلطة كبيرة (L)
+              سلطة كبيرة ( L )
             </MenuItem>
           </Select>
         </FormControl>

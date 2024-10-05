@@ -51,6 +51,9 @@ export const SelectStyle: SxProps = {
 };
 
 export const MenuItemStyle: SxProps = {
+  fontSize: "14px",
+  fontWeight: 400,
+  paddingBlock: "8px",
   "&:hover": {
     backgroundColor: "#FFE2CD",
   },
