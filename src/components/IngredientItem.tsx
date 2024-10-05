@@ -17,7 +17,7 @@ const IngredientItem: React.FC<IngredientItemProps> = ({
   disabled = false,
 }) => {
   return (
-    <Box display="flex" alignItems="center">
+    <Box display="flex" alignItems="center" width="100%">
       <FormControlLabel
         control={
           <Checkbox
@@ -29,22 +29,45 @@ const IngredientItem: React.FC<IngredientItemProps> = ({
           />
         }
         label={
-          <Typography
+          <Box
+            display="flex"
+            alignItems="center"
+            gap="4px"
             sx={{
-              fontSize: "14px",
-              fontWeight: 300,
-              overflow: "hidden",
+              width: "auto",
               whiteSpace: "nowrap",
-              textOverflow: "ellipsis",
-              color: disabled ? "#737171" : "inherit",
+              flexGrow: 1,
             }}
           >
-            {ingredient.name}
-          </Typography>
+            <Typography
+              sx={{
+                fontSize: "14px",
+                fontWeight: 300,
+                flexShrink: 0,
+                color: disabled ? "#737171" : "inherit",
+              }}
+            >
+              {ingredient.name}
+            </Typography>
+
+            {ingredient.extraPrice && (
+              <Typography
+                sx={{
+                  fontSize: "14px",
+                  fontWeight: 300,
+                  color: "#A3A5AD",
+                  flexShrink: 0,
+                }}
+              >
+                ( +{ingredient.extraPrice} جـ )
+              </Typography>
+            )}
+          </Box>
         }
         sx={{
           margin: 0,
           opacity: disabled ? 0.6 : 1,
+          width: "100%",
         }}
       />
     </Box>
