@@ -15,18 +15,19 @@ const Sidebar: FC = () => {
 
   return (
     <Paper
-      elevation={3}
       sx={{
         width: "30%",
         backgroundColor: "#F9F9F9",
         boxSizing: "border-box",
         overflowY: "auto",
+        borderRadius: "0",
+        boxShadow: "-2px 0px 2px 0px #00000026",
       }}
-      className="pt-6 pr-8 pl-4 h-full"
+      className="pt-6 pr-8 pl-4 h-full border-b border-t border-l"
     >
       <Stack spacing={3}>
         {/* Sidebar Header */}
-        <Typography variant="h6" className="font-semibold">
+        <Typography variant="h6" sx={{ fontWeight: "bold", fontSize: "14px" }}>
           مكونات الطلب
         </Typography>
 

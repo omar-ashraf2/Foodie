@@ -5,9 +5,12 @@ import PriceSummary from "../PriceSummary";
 
 const Header: FC = () => {
   return (
-    <Box className="flex items-center justify-between bg-gray-50 py-2 px-8 border-b-2">
+    <Box
+      sx={{ boxShadow: "0px 2px 2px 0px #00000026" }}
+      className="flex items-center justify-between bg-[##F9F9F9] py-2 px-8 border-b"
+    >
       {/* Back Button */}
-      <Button color="inherit">
+      <Button color="inherit" className="flex gap-2">
         <ArrowForward />
         <Typography className="text-base">رجوع</Typography>
       </Button>
