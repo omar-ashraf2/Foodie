@@ -1,15 +1,19 @@
-import React from "react";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
   Accordion,
-  AccordionSummary,
   AccordionDetails,
-  Typography,
+  AccordionSummary,
   Box,
+  Typography,
 } from "@mui/material";
-import IngredientItem from "./IngredientItem";
+import React from "react";
 import { Ingredient } from "../contexts/SaladContext";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { AccordionStyle, AccordionSummaryStyle } from "../styles/styles";
+import {
+  AccordionStyle,
+  AccordionSummaryStyle,
+  SubtitleStyle,
+} from "../styles/styles";
+import IngredientItem from "./IngredientItem";
 
 type IngredientCategoryProps = {
   title: string;
@@ -49,8 +53,10 @@ const IngredientCategory: React.FC<IngredientCategoryProps> = ({
             <IngredientItem key={ingredient.id} ingredient={ingredient} />
           ))
         ) : (
-          <Box p={2}>
-            <Typography color="textSecondary">{message}</Typography>
+          <Box>
+            <Typography color="textSecondary" sx={SubtitleStyle}>
+              {message}
+            </Typography>
           </Box>
         )}
       </AccordionDetails>

@@ -16,6 +16,7 @@ import {
   AccordionSummaryStyle,
   MenuItemStyle,
   SelectStyle,
+  SubtitleStyle,
 } from "../styles/styles";
 
 type SaladSizeSelectorProps = {
@@ -37,7 +38,14 @@ const SaladSizeSelector: React.FC<SaladSizeSelectorProps> = ({
   };
 
   return (
-    <Accordion sx={AccordionStyle}>
+    <Accordion
+      sx={{
+        ...AccordionStyle,
+        "&.Mui-expanded": {
+          marginTop: "15px !important",
+        },
+      }}
+    >
       <AccordionSummary
         expandIcon={<ExpandMoreIcon sx={{ color: "#333" }} />}
         sx={AccordionSummaryStyle}
@@ -47,10 +55,7 @@ const SaladSizeSelector: React.FC<SaladSizeSelectorProps> = ({
         </Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <Typography
-          variant="body2"
-          sx={{ fontWeight: 200, mb: 2, fontSize: "14px" }}
-        >
+        <Typography variant="body2" sx={{ ...SubtitleStyle, mb: 1 }}>
           قم باختيار مكونات السلطة الرئيسية
         </Typography>
         <Typography sx={{ fontWeight: 300, mb: 2, fontSize: "14px" }}>
@@ -58,10 +63,14 @@ const SaladSizeSelector: React.FC<SaladSizeSelectorProps> = ({
         </Typography>
         <FormControl fullWidth>
           <Select
+            displayEmpty
             value={state.size || ""}
             onChange={handleChange}
             sx={SelectStyle}
           >
+            <MenuItem value="" sx={MenuItemStyle} disabled>
+              برجاء الاختيار
+            </MenuItem>
             <MenuItem value="small" sx={MenuItemStyle}>
               سلطة صغيرة (S)
             </MenuItem>

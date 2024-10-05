@@ -1,7 +1,6 @@
 import { SxProps } from "@mui/material";
 
 export const AccordionStyle: SxProps = {
-  mb: 2,
   borderRadius: "4px",
   boxShadow: "1px 1px 1px 0px #00000033",
   padding: "4px",
@@ -13,13 +12,11 @@ export const AccordionStyle: SxProps = {
     px: 2,
   },
   "& .MuiAccordionDetails-root": {
-    px: 3,
-    pt: 2,
+    pt: 0,
   },
 };
 
 export const AccordionSummaryStyle: SxProps = {
-  backgroundColor: "#FFF",
   borderRadius: "4px",
   "& .MuiAccordionSummary-content": {
     display: "flex",
@@ -28,24 +25,28 @@ export const AccordionSummaryStyle: SxProps = {
   },
 };
 
+export const SubtitleStyle: SxProps = {
+  fontWeight: 200,
+  fontSize: "14px",
+  mt: 0,
+};
+
 export const SelectStyle: SxProps = {
-  backgroundColor: "#F9F9F9",
-  borderRadius: "8px",
+  borderRadius: "4px",
+  height: "48px",
+  boxShadow: "1px 1px 1px 0px #00000033",
   "& .MuiOutlinedInput-root": {
-    "& fieldset": {
-      borderColor: "#E0E0E0",
-    },
-    "&:hover fieldset": {
-      borderColor: "#EE6400",
-    },
-    "&.Mui-focused fieldset": {
-      borderColor: "#EE6400",
-    },
+    height: "48px",
   },
   "& .MuiSelect-icon": {
     right: "unset",
-    left: "10px",
+    left: "16px",
     color: "#333",
+  },
+  "& .MuiInputBase-input": {
+    fontSize: "14px",
+    fontWeight: 300,
+    paddingRight: "16px",
   },
 };
 
