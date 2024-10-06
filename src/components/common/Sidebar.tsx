@@ -5,7 +5,7 @@ import {
   sizeMessages,
   validationMessages,
 } from "../../constants/sidebar";
-import { useSaladContext } from "../../contexts/SaladContext";
+import { useSaladContext } from "../../contexts/saladContext";
 import { SidebarStyles } from "../../styles/sidebarStyles";
 import IngredientCategory from "../IngredientCategory";
 import SaladSizeSelector from "../SaladSizeSelector";

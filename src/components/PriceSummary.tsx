@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { useSaladContext } from "../contexts/SaladContext";
+import { useSaladContext } from "../contexts/saladContext";
 
 const PriceSummary: React.FC = () => {
   const { state } = useSaladContext();

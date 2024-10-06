@@ -1,7 +1,7 @@
 import React from "react";
 import { Checkbox, FormControlLabel, Typography, Box } from "@mui/material";
 import { Ingredient } from "../types/Ingredient";
-import { CheckboxStyle } from "../styles/styles";
+import { CheckboxStyle } from "../styles/IngredientStyles";
 
 type IngredientItemProps = {
   ingredient: Ingredient;

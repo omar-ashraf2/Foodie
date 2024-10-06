@@ -1,7 +1,7 @@
 // SaladList.tsx
 import { Box, CircularProgress, Typography } from "@mui/material";
 import { useState } from "react";
-import { useSaladContext } from "../../contexts/SaladContext";
+import { useSaladContext } from "../../contexts/saladContext";
 import { Ingredient } from "../../types/Ingredient";
 
 type SaladListProps = {

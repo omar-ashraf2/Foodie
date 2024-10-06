@@ -9,14 +9,14 @@ import {
   SelectChangeEvent,
   Typography,
 } from "@mui/material";
-import { useSaladContext } from "../contexts/SaladContext";
+import { useSaladContext } from "../contexts/saladContext";
 import {
   AccordionStyle,
   AccordionSummaryStyle,
   MenuItemStyle,
   SelectStyle,
   SubtitleStyle,
-} from "../styles/styles";
+} from "../styles/IngredientStyles";
 import { TSize } from "../types/size";
 
 const SaladSizeSelector: React.FC = () => {

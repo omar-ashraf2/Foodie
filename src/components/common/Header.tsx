@@ -1,7 +1,7 @@
 import { ArrowForward } from "@mui/icons-material";
 import { Box, Button, Typography } from "@mui/material";
 import React, { useState } from "react";
-import { useSaladContext } from "../../contexts/SaladContext";
+import { useSaladContext } from "../../contexts/saladContext";
 import { validateSaladSelection } from "../../utils/validationUtils";
 import PriceSummary from "../PriceSummary";
 import OrderReviewModal from "./OrderReviewModal";

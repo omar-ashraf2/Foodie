@@ -13,14 +13,14 @@ import {
   protein,
   sauce,
 } from "../constants/ingredients";
-import { useSaladContext } from "../contexts/SaladContext";
 import {
   AccordionStyle,
   AccordionSummaryStyle,
   SubtitleStyle,
-} from "../styles/styles";
+} from "../styles/IngredientStyles";
 import { Ingredient } from "../types/Ingredient";
 import IngredientItem from "./IngredientItem";
+import { useSaladContext } from "../contexts/saladContext";
 
 const CATEGORY_LIMITS = {
   base: 2,

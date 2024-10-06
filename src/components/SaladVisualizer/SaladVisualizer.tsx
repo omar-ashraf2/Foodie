@@ -8,7 +8,7 @@ import {
   protein,
   sauce,
 } from "../../constants/ingredients";
-import { useSaladContext } from "../../contexts/SaladContext";
+import { useSaladContext } from "../../contexts/saladContext";
 import { prefetchImages } from "../../utils/prefetchImages";
 import SaladList from "./SaladList";
 import SaladListPlaceholder from "./SaladListPlaceholder";
