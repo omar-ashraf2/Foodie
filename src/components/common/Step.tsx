@@ -30,7 +30,7 @@ const Step: React.FC<StepProps> = ({ step, label, completed, current }) => (
       )}
     </Box>
     <Typography
-      className="mx-2 text-sm"
+      className="mx-2 text-sm font-light md:font-medium lg:font-light md:text-center lg:text-left"
       fontWeight={completed || current ? 500 : 300}
     >
       {label}

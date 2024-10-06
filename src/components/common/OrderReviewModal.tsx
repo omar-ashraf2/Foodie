@@ -13,7 +13,6 @@ import {
   closeButtonStyles,
   continueButtonStyles,
   dialogActionsStyles,
-  dialogContentStyles,
   dialogPaperStyles,
   ingredientsGridStyles,
   orderInfoBoxStyles,
@@ -50,7 +49,7 @@ const OrderReviewModal: React.FC<OrderReviewModalProps> = ({
         <Typography
           textAlign="center"
           flex={1}
-          fontSize="24px"
+          fontSize={{ xs: "24px", sm: "18px" }}
           fontWeight="bold"
         >
           مراجعة الطلب
@@ -72,7 +71,11 @@ const OrderReviewModal: React.FC<OrderReviewModalProps> = ({
         <Typography fontSize="14px">السعر : {totalPrice} جـ</Typography>
       </Box>
 
-      <DialogContent sx={dialogContentStyles}>
+      <DialogContent
+        sx={{
+          padding: { xs: "0", sm: "16px" },
+        }}
+      >
         <Box display="flex" justifyContent="center" alignItems="center">
           <Box sx={ingredientsGridStyles}>
             {ingredients.map((ingredient) => (
@@ -82,6 +85,10 @@ const OrderReviewModal: React.FC<OrderReviewModalProps> = ({
                 alt={ingredient.name}
                 width={156}
                 height={120}
+                style={{
+                  width: "100%",
+                  objectFit: "contain",
+                }}
               />
             ))}
           </Box>

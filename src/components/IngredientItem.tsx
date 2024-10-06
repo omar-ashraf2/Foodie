@@ -32,9 +32,9 @@ const IngredientItem: React.FC<IngredientItemProps> = ({
           <Box
             display="flex"
             alignItems="center"
-            gap="4px"
+            gap={{ xs: "6px", md: "4px" }}
             sx={{
-              width: "auto",
+              width: { xs: "100%", md: "auto" },
               whiteSpace: "nowrap",
               flexGrow: 1,
             }}

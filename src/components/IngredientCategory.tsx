@@ -117,8 +117,11 @@ const IngredientCategory: React.FC<IngredientCategoryProps> = ({
             <Box
               sx={{
                 display: "grid",
-                gridTemplateColumns: "repeat(3, 1fr)",
-                gap: "8px",
+                gridTemplateColumns: {
+                  xs: "repeat(2, 1fr)",
+                  md: "repeat(3, 1fr)",
+                },
+                gap: { xs: "12px", md: "8px" },
                 width: "100%",
               }}
             >

@@ -5,6 +5,10 @@ const dialogPaperStyles: SxProps = {
   boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1)",
   overflow: "hidden",
   padding: "18px",
+  "@media (max-width: 600px)": {
+    minWidth: "100%",
+    margin: "8px",
+  },
 };
 
 const titleStyles: SxProps = {
@@ -28,20 +32,21 @@ const closeButtonStyles: SxProps = {
 
 const orderInfoBoxStyles: SxProps = {
   display: "flex",
+  flexDirection: { xs: "column", sm: "row" },
   alignItems: "center",
   justifyContent: "center",
   marginBottom: "16px",
+  textAlign: { xs: "center", sm: "left" },
   gap: 5,
-};
-
-const dialogContentStyles: SxProps = {
-  padding: 0,
 };
 
 const ingredientsGridStyles: SxProps = {
   display: "grid",
-  gridTemplateColumns: "repeat(3, 1fr)",
-  gap: 2,
+  gridTemplateColumns: {
+    xs: "repeat(2, 1fr)",
+    sm: "repeat(3, 1fr)",
+  },
+  gap: { xs: "8px", sm: "16px" },
   padding: "16px",
   borderRadius: "4px",
   backgroundColor: "#F9F9F9",
@@ -57,15 +62,15 @@ const continueButtonStyles: SxProps = {
   padding: "14px 32px",
   fontSize: "16px",
   borderRadius: "8px",
+  width: { xs: "100%", sm: "auto" },
 };
 
 export {
-  dialogPaperStyles,
-  titleStyles,
   closeButtonStyles,
-  orderInfoBoxStyles,
-  dialogContentStyles,
-  ingredientsGridStyles,
-  dialogActionsStyles,
   continueButtonStyles,
+  dialogActionsStyles,
+  dialogPaperStyles,
+  ingredientsGridStyles,
+  orderInfoBoxStyles,
+  titleStyles,
 };

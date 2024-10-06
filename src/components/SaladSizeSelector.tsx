@@ -57,7 +57,10 @@ const SaladSizeSelector: React.FC = () => {
             displayEmpty
             value={size || ""}
             onChange={handleChange}
-            sx={SelectStyle}
+            sx={{
+              ...SelectStyle,
+              "& .MuiInputBase-input": { fontSize: { xs: "16px", md: "14px" } },
+            }}
           >
             <MenuItem
               value=""
