@@ -1,50 +1,57 @@
-# React + TypeScript + Vite
+# Foodie Salad
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Foodie Salad** is a dynamic and interactive web application designed to help users build and customize their own salads with a wide variety of ingredients. From selecting the size of the salad to choosing specific ingredients, Foodie provides an easy-to-use interface that makes food customization fun and engaging.
 
-Currently, two official plugins are available:
+### [Live Demo](https://foodie-two-pi.vercel.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Table of Contents
 
-## Expanding the ESLint configuration
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Getting Started](#getting-started)
+- [Contributing](#contributing)
+- [Contact](#contact)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Features
 
-- Configure the top-level `parserOptions` property like this:
+- 🥗 **Salad Customization:** Choose the size of your salad (small, medium, or large) and add/remove ingredients based on your preference.
+- 🎨 **Real-Time Visualization:** View selected ingredients dynamically in the visualizer.
+- 🧮 **Price Calculation:** Automatically calculates the total price based on the selected ingredients.
+- 🔄 **Responsive Design:** Designed to work seamlessly on various screen sizes.
+- ⚙️ **Modern UI/UX:** Built with Material-UI and provides an elegant user experience.
+- 🌐 **RTL Support:** Full support for Right-to-Left (RTL) layouts for Arabic users.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Technologies Used
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+- **React**: JavaScript library for building user interfaces.
+- **TypeScript**: Static type checking for JavaScript.
+- **Vite**: Next-generation front-end tooling for fast development and build times.
+- **Material-UI**: Component library for building elegant UIs.
+- **Emotion**: CSS-in-JS solution for styling.
+- **Vercel**: Deployment platform for hosting.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Getting Started
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+Follow the instructions below to get a local copy of the project up and running.
+
+### Prerequisites
+
+- **Node.js** (>= 14.0.0)
+- **yarn** (Package manager)
+
+## Contributing
+
+Contributions are welcome! If you'd like to contribute, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/your-feature-name`).
+3. Make your changes.
+4. Commit your changes (`git commit -m 'Add new feature'`).
+5. Push to the branch (`git push origin feature/your-feature-name`).
+6. Open a pull request.
+
+## Contact
+
+If you have any questions or suggestions about this project, feel free to reach out:
+
+- **Email:** [oashraf304@gmail.com](mailto:oashraf304@gmail.com)
