@@ -18,6 +18,7 @@ import {
   SubtitleStyle,
 } from "../styles/styles";
 import { TSize } from "../types/size";
+
 const SaladSizeSelector: React.FC = () => {
   const {
     state: { size },
@@ -33,12 +34,9 @@ const SaladSizeSelector: React.FC = () => {
     <Accordion
       sx={{
         ...AccordionStyle,
-        "&.Mui-expanded": {
-          marginTop: "15px !important",
-        },
+        "&.Mui-expanded": { marginTop: "15px !important" },
       }}
     >
-      {" "}
       <AccordionSummary
         expandIcon={<ExpandMoreIcon sx={{ color: "#333" }} />}
         sx={AccordionSummaryStyle}
